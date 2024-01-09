@@ -1,3 +1,9 @@
 {
-  "admin.password.mismatch": "Password mismatched"
+	"admin.password.mismatch": "Password mismatched",
+	"doctor.create.success": "Doctor created successfully",
+	"doctor.update.success": "Doctor updated successfully",
+	"doctor.not.found": "Doctor not found",
+	"patient.create.success": "Patient created successfully",
+	"patient.update.success": "Patient updated successfully",
+	"server.error": "server.error"
 }

@@ -47,4 +47,35 @@ module.exports = {
       defaultsTo: false,
     },
   },
+  toDao: (values) => {
+    const data = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      gaurdianName: values.gaurdianName,
+      age: values.age,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      password: values.password,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
+  toDto: (values) => {
+    const data = {
+      id: values.id,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      gaurdianName: values.gaurdianName,
+      age: values.age,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      deleted: values.deleted,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
 };

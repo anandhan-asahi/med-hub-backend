@@ -19,7 +19,7 @@ module.exports = {
     success: {
       statusCode: 200,
     },
-    userNotFound: {
+    doctorNotFound: {
       statusCode: 404,
     },
     passwordMismatch: {
@@ -32,11 +32,11 @@ module.exports = {
 
   fn: async function ({ email, password }, exits) {
     try {
-      const existingUser = await Doctor.findOne({ email: email });
-      if (!existingUser) {
-        return exits.userNotFound({
+      const existingDoctor = await Doctor.findOne({ email: email });
+      if (!existingDoctor) {
+        return exits.doctorNotFound({
           status: sails.config.custom.api_status.error,
-          message: this.req.i18n.__("admin.user.not.found"),
+          message: this.req.i18n.__("doctor.not.found"),
         });
       }
       const match = await bcrypt.compare(password, existingUser.password);

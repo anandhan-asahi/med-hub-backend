@@ -72,7 +72,7 @@ module.exports = {
   },
 
   models: {
-    migrate: "alter",
+    migrate: "safe",
     // cascadeOnDestroy: false,
   },
 
@@ -233,7 +233,7 @@ module.exports = {
    *                                                                         *
    ***************************************************************************/
   log: {
-    level: "debug",
+    level: "info",
   },
 
   http: {

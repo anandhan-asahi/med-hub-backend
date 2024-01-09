@@ -50,4 +50,37 @@ module.exports = {
       type: "number",
     },
   },
+  toDao: (values) => {
+    const data = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      doctorProfessionId: values.doctorProfessionId,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      password: values.password,
+      isAdmin: values.isAdmin,
+      yearsOfExperience: values.yearsOfExperience,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
+  toDto: (values) => {
+    const data = {
+      id: values.id,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      doctorProfessionId: values.doctorProfessionId,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+      isAdmin: values.isAdmin,
+      deleted: values.deleted,
+      yearsOfExperience: values.yearsOfExperience,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
 };
