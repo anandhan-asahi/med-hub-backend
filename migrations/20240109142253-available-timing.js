@@ -16,11 +16,16 @@ exports.setup = function (options, seedLink) {
 
 exports.up = function (db, callback) {
   db.createTable(
-    "user",
+    "available_timing",
     {
-      id: { type: "int", primaryKey: true },
-      first_name: { type: "string" },
-      last_name: { type: "string" },
+      id: {
+        type: "int",
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: {
+        type: "string",
+      },
     },
     function (err) {
       if (err) return callback(err);

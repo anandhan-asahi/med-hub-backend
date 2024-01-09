@@ -15,7 +15,8 @@
 
 module.exports.datastores = {
   default: {
-    adapter: require("sails-mysql"),
-    url: "mysql://root:Asahi@123@localhost:3306/messaging",
+    adapter: "sails-mysql",
+    url: "mysql://root:Asahi@123@localhost:3306/med_hub",
+    charset: "utf8mb4",
   },
 };

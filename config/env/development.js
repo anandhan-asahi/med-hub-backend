@@ -44,8 +44,9 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
-      // url: 'mysql://user:password@host:port/database',
+      adapter: "sails-mysql",
+      url: "mysql://root:Asahi@123@localhost:3306/med_hub",
+      charset: "utf8mb4",
       //--------------------------------------------------------------------------
       //  /\   To avoid checking it in to version control, you might opt to set
       //  ||   sensitive credentials like `url` using an environment variable.
@@ -71,7 +72,7 @@ module.exports = {
   },
 
   models: {
-    migrate: "safe",
+    migrate: "alter",
     // cascadeOnDestroy: false,
   },
 
