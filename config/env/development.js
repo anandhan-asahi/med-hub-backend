@@ -72,7 +72,7 @@ module.exports = {
   },
 
   models: {
-    migrate: "safe",
+    migrate: "alter",
     // cascadeOnDestroy: false,
   },
 

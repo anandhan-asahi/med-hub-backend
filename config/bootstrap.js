@@ -9,8 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-module.exports.bootstrap = async function() {
-
+module.exports.bootstrap = async function () {
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
@@ -26,5 +25,21 @@ module.exports.bootstrap = async function() {
   //   // etc.
   // ]);
   // ```
-
+  // Db-migrate will trigger
+  // var DBMigrate = require("db-migrate");
+  // // Getting an instance of dbmigrate
+  // var dbmigrate = DBMigrate.getInstance(true, {
+  //   env: sails.config.environment,
+  // });
+  // // Getting the db migrated
+  // dbmigrate.up().then(async (res) => {
+  //   if (res) {
+  //     sails.log("DB UP Migrated successfully");
+  //   }
+  //   return;
+  // });
+  // let existingDoctorProffessions = await DoctorProfession.find();
+  // if (existingDoctorProffessions.length === 0) {
+  //   await sails.services.masterdata.createDoctorProffession();
+  // }
 };
