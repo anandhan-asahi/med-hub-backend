@@ -83,4 +83,5 @@ module.exports = {
     );
     return data;
   },
+  toDtoList: (list) => list.map((dto) => Doctor.toDto(dto)),
 };

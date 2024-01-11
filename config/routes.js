@@ -27,6 +27,15 @@ module.exports.routes = {
   "PUT /api/v1/admin/patient/:id": {
     action: "patient/update",
   },
+  "GET /api/v1/admin/patient/fetch-doctors": {
+    action: "patient/fetch-doctors",
+  },
+  "GET /api/v1/admin/patient/fetch-doctor-timings/:doctorId": {
+    action: "patient/fetch-doctor-timings",
+  },
+  "POST /api/v1/admin/patient/book-appointment/:id": {
+    action: "patient/book-appointment",
+  },
   //**** Patient routes ends****//
 
   //**** Available routes****//

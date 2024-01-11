@@ -1,9 +1,13 @@
 {
-	"admin.password.mismatch": "Password mismatched",
-	"doctor.create.success": "Doctor created successfully",
-	"doctor.update.success": "Doctor updated successfully",
-	"doctor.not.found": "Doctor not found",
-	"patient.create.success": "Patient created successfully",
-	"patient.update.success": "Patient updated successfully",
-	"server.error": "server.error"
+  "admin.password.mismatch": "Password mismatched",
+  "doctor.create.success": "Doctor created successfully",
+  "doctor.update.success": "Doctor updated successfully",
+  "doctors.fetch.success": "Doctor fetched successfully",
+  "doctor.timings.fetch.success": "Doctor timings fetched successfully",
+  "doctor.not.found": "Doctor not found",
+  "patient.create.success": "Patient created successfully",
+  "patient.update.success": "Patient updated successfully",
+  "patient.not.found": "Patient not found",
+  "appointment.book.success": "Appointment booked successfully",
+  "server.error": "server.error"
 }

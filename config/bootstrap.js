@@ -38,8 +38,13 @@ module.exports.bootstrap = async function () {
   //   }
   //   return;
   // });
-  // let existingDoctorProffessions = await DoctorProfession.find();
-  // if (existingDoctorProffessions.length === 0) {
-  //   await sails.services.masterdata.createDoctorProffession();
-  // }
+  const [existingDoctorProfessions, existingAvailableTimings] =
+    await Promise.all([DoctorProfession.find(), AvailableTiming.find()]);
+  if (existingDoctorProfessions.length === 0) {
+    await sails.services.masterdata.createDoctorProfession();
+  }
+
+  if (existingAvailableTimings.length === 0) {
+    await sails.services.masterdata.createAvailableTiming();
+  }
 };

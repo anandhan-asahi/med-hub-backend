@@ -28,6 +28,12 @@ module.exports = {
         id: inputs.id,
         deleted: false,
       }).populate("doctorProfessionId");
+      if (!existingDoctor) {
+        return exits.doctorNotFound({
+          status: sails.config.custom.api_status.error,
+          message: this.req.i18n.__("doctor.not.found"),
+        });
+      }
       return exits.success({
         status: sails.config.custom.api_status.success,
         data: Doctor.toDto(existingDoctor),

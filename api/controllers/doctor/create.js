@@ -15,7 +15,7 @@ module.exports = {
     },
     doctorProfessionId: {
       type: "number",
-      // required: true,
+      required: true,
     },
     email: {
       type: "string",
@@ -33,6 +33,10 @@ module.exports = {
     },
     yearsOfExperience: {
       type: "number",
+    },
+    availableTimings: {
+      type: "ref",
+      required: true,
     },
   },
 
@@ -58,8 +62,18 @@ module.exports = {
         );
       });
       const doctorDao = Doctor.toDao({ ...inputs, password: hashedPassword });
-      await Doctor.create(doctorDao);
-
+      const createdDoctor = await Doctor.create(doctorDao).fetch();
+      const doctorAvailableTimingDaoList = inputs.availableTimings.map(
+        (timing) => {
+          return {
+            ...DoctorAvailableTiming.toDao({
+              doctorId: createdDoctor.id,
+              availableTimingId: timing,
+            }),
+          };
+        }
+      );
+      await DoctorAvailableTiming.createEach(doctorAvailableTimingDaoList);
       return exits.success({
         status: sails.config.custom.api_status.success,
         message: this.req.i18n.__("doctor.create.success"),
