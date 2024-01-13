@@ -1,10 +1,9 @@
 /**
- * User.js
+ * DoctorAppointment.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
-const moment = require("moment");
 module.exports = {
   tableName: "doctor_appointment",
   attributes: {
@@ -63,4 +62,42 @@ module.exports = {
     );
     return data;
   },
+  toPatientBookingDto: (values) => {
+    const data = {
+      id: values.id,
+      doctorId: {
+        id: values.doctorId.id,
+        name: values.doctorId.firstName + " " + values.doctorId.firstName,
+        email: values.doctorId.email,
+      },
+      appointmentStartTime: values.appointmentStartTime,
+      appointmentEndTime: values.appointmentEndTime,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
+  toDoctorAppointmentDto: (values) => {
+    const data = {
+      id: values.id,
+      patientId: {
+        id: values.patientId.id,
+        name: values.patientId.firstName + " " + values.patientId.firstName,
+        email: values.patientId.email,
+        age: values.patientId.age,
+      },
+      appointmentStartTime: values.appointmentStartTime,
+      appointmentEndTime: values.appointmentEndTime,
+    };
+    Object.keys(data).forEach(
+      (key) => data[key] === undefined && delete data[key]
+    );
+    return data;
+  },
+  toDtoList: (list) => list.map((dto) => DoctorAppointment.toDto(dto)),
+  toPatientBookingDtoList: (list) =>
+    list.map((dto) => DoctorAppointment.toPatientBookingDto(dto)),
+  toDoctorAppointmentDtoList: (list) =>
+    list.map((dto) => DoctorAppointment.toDoctorAppointmentDto(dto)),
 };

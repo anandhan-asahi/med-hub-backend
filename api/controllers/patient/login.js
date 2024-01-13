@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 module.exports = {
   friendlyName: "Login",
 
-  description: "Doctor Login",
+  description: "Patient Login",
 
   inputs: {
     email: {
@@ -19,7 +19,7 @@ module.exports = {
     success: {
       statusCode: 200,
     },
-    doctorNotFound: {
+    patientNotFound: {
       statusCode: 404,
     },
     passwordMismatch: {
@@ -32,23 +32,23 @@ module.exports = {
 
   fn: async function ({ email, password }, exits) {
     try {
-      const existingDoctor = await Doctor.findOne({ email: email });
-      if (!existingDoctor) {
-        return exits.doctorNotFound({
+      const existingPatient = await Patient.findOne({ email: email });
+      if (!existingPatient) {
+        return exits.patientNotFound({
           status: sails.config.custom.api_status.error,
-          message: this.req.i18n.__("doctor.not.found"),
+          message: this.req.i18n.__("patient.not.found"),
         });
       }
-      const match = await bcrypt.compare(password, existingDoctor.password);
+      const match = await bcrypt.compare(password, existingPatient.password);
       if (match) {
         const auth = await sails.helpers.getJwtToken.with({
-          entryPoint: "doctor",
-          data: existingDoctor,
+          entryPoint: "patient",
+          data: existingPatient,
           type: "authToken",
         });
         const refresh = await sails.helpers.getJwtToken.with({
-          entryPoint: "doctor",
-          data: existingDoctor.id,
+          entryPoint: "patient",
+          data: existingPatient.id,
           type: "refreshToken",
         });
         return exits.success({
@@ -61,7 +61,7 @@ module.exports = {
       } else {
         return exits.passwordMismatch({
           status: sails.config.custom.api_status.error,
-          message: this.req.i18n.__("doctor.password.mismatch"),
+          message: this.req.i18n.__("patient.password.mismatch"),
         });
       }
     } catch (err) {

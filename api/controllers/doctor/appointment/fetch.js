@@ -1,7 +1,7 @@
 module.exports = {
   friendlyName: "View",
 
-  description: "View Patient",
+  description: "View Doctor Appoontments",
 
   inputs: {
     id: {
@@ -14,7 +14,7 @@ module.exports = {
     success: {
       statusCode: 200,
     },
-    patientNotFound: {
+    doctorNotFound: {
       statusCode: 404,
     },
     exceptionError: {
@@ -24,23 +24,29 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
-      const existingPatient = await Patient.findOne({
+      const existingDoctor = await Doctor.findOne({
         id: inputs.id,
         deleted: false,
       });
-      if (!existingPatient) {
-        return exits.patientNotFound({
+      if (!existingDoctor) {
+        return exits.doctorNotFound({
           status: sails.config.custom.api_status.error,
-          message: this.req.i18n.__("patient.not.found"),
+          message: this.req.i18n.__("doctor.not.found"),
         });
       }
+      const existingDoctorAppointments = await DoctorAppointment.find({
+        doctorId: inputs.id,
+      }).populate("patientId");
+
       return exits.success({
         status: sails.config.custom.api_status.success,
-        data: Patient.toDto(existingPatient),
+        data: DoctorAppointment.toDoctorAppointmentDtoList(
+          existingDoctorAppointments
+        ),
       });
     } catch (err) {
       sails.log.error(
-        "Error occurred while fetching the patient details as " + err
+        "Error occurred while fetching the doctor details as " + err
       );
       return exits.exceptionError({
         status: sails.config.custom.api_status.error,

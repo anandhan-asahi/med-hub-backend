@@ -103,11 +103,9 @@ module.exports = {
      * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
      *                                                                          *
      ***************************************************************************/
-    cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
-    },
+    // cors: {
+    //   allowOrigins: "*",
+    // },
   },
 
   /***************************************************************************
@@ -264,6 +262,31 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     // trustProxy: true,
+  },
+
+  authToken: {
+    patient: {
+      secretKey:
+        "4a30a096f4d78c9ec5eaf7b0583c432cb17aa80fd16a83e693c28610a11b6f63",
+      life: 60 * 60 * 24 * 7, //expires in 7 days
+    },
+    doctor: {
+      secretKey:
+        "34af1c4e5d7fdce1f57aff05c0f90ebcc2b1c61b51a0f7acb4b66b7b1c450ce4",
+      life: 60 * 60 * 24, //expires in 24 hours
+    },
+  },
+  refreshToken: {
+    doctor: {
+      secretKey:
+        "109239d633af88af39326cf172a79223e2fe917a470dfa09f30b078bdd671de9",
+      life: 60 * 60 * 24 * 30, // expires in 30 days
+    },
+    patient: {
+      secretKey:
+        "0601d7ce50fe21c4e7eb23b6d1d0738316c544464960254abd401f46faa62b52",
+      life: 60 * 60 * 24 * 30, // expires in 30 days
+    },
   },
 
   /**************************************************************************

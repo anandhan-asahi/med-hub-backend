@@ -1,7 +1,7 @@
 module.exports = {
   friendlyName: "View",
 
-  description: "View Patient",
+  description: "View Patient Bookings",
 
   inputs: {
     id: {
@@ -34,13 +34,20 @@ module.exports = {
           message: this.req.i18n.__("patient.not.found"),
         });
       }
+
+      const existingPatientBookings = await DoctorAppointment.find({
+        patientId: inputs.id,
+      }).populate("doctorId");
+
       return exits.success({
         status: sails.config.custom.api_status.success,
-        data: Patient.toDto(existingPatient),
+        data: DoctorAppointment.toPatientBookingDtoList(
+          existingPatientBookings
+        ),
       });
     } catch (err) {
       sails.log.error(
-        "Error occurred while fetching the patient details as " + err
+        "Error occurred while fetching the doctor details as " + err
       );
       return exits.exceptionError({
         status: sails.config.custom.api_status.error,

@@ -5,9 +5,12 @@
   "doctors.fetch.success": "Doctor fetched successfully",
   "doctor.timings.fetch.success": "Doctor timings fetched successfully",
   "doctor.not.found": "Doctor not found",
+  "doctor.password.mismatch": "Password mismatched",
   "patient.create.success": "Patient created successfully",
   "patient.update.success": "Patient updated successfully",
   "patient.not.found": "Patient not found",
+  "patient.password.mismatch": "Password mismatched",
   "appointment.book.success": "Appointment booked successfully",
-  "server.error": "server.error"
+  "server.error": "server.error",
+  "login.unauth": "Unauthorized User!"
 }
