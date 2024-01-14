@@ -1,3 +1,4 @@
+const moment = require("moment");
 module.exports = {
   friendlyName: "Fetch",
 
@@ -6,6 +7,10 @@ module.exports = {
   inputs: {
     doctorId: {
       type: "number",
+      required: true,
+    },
+    appointmentDate: {
+      type: "ref",
       required: true,
     },
   },
@@ -33,10 +38,16 @@ module.exports = {
           deleted: false,
         }),
         DoctorAppointment.find({
-          where: { doctorId: inputs.doctorId },
+          where: {
+            doctorId: inputs.doctorId,
+            appointmentStartTime: {
+              startsWith: moment(inputs.appointmentDate).format("YYYY-MM-DD"),
+            },
+          },
           select: ["availableTimingId"],
         }),
       ]);
+
       if (!existingDoctor) {
         return exits.doctorNotFound({
           status: sails.config.custom.api_status.error,

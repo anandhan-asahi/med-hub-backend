@@ -10,22 +10,18 @@ module.exports = {
     },
     firstName: {
       type: "string",
-      required: true,
     },
     lastName: {
       type: "string",
-      required: true,
     },
     gaurdianName: {
       type: "string",
-      required: true,
     },
     age: {
       type: "number",
     },
     email: {
       type: "string",
-      required: true,
     },
     phoneNumber: {
       type: "string",
@@ -36,6 +32,9 @@ module.exports = {
     success: {
       statusCode: 200,
     },
+    alreadyExist: {
+      statusCode: 409,
+    },
     exceptionError: {
       statusCode: 500,
     },
@@ -43,6 +42,34 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
+      if (inputs.email) {
+        const [existingDoctorAccount, existingPatient] = await Promise.all([
+          Doctor.findOne({
+            where: {
+              email: inputs.email,
+              deleted: false,
+              id: {
+                "!=": inputs.id,
+              },
+            },
+          }),
+          Patient.findOne({
+            email: inputs.email,
+            deleted: false,
+          }),
+        ]);
+        if (existingPatient) {
+          return exits.alreadyExist({
+            status: sails.config.custom.api_status.error,
+            message: this.req.i18n.__("patient.already.exist"),
+          });
+        } else if (existingDoctorAccount) {
+          return exits.alreadyExist({
+            status: sails.config.custom.api_status.error,
+            message: this.req.i18n.__("doctor.already.exist"),
+          });
+        }
+      }
       const patientDao = Patient.toDao(inputs);
       const updatedPatient = await Patient.updateOne(
         { id: inputs.id },

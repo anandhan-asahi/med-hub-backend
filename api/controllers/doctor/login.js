@@ -32,7 +32,9 @@ module.exports = {
 
   fn: async function ({ email, password }, exits) {
     try {
-      const existingDoctor = await Doctor.findOne({ email: email });
+      const existingDoctor = await Doctor.findOne({ email: email }).populate(
+        "doctorProfessionId"
+      );
       if (!existingDoctor) {
         return exits.doctorNotFound({
           status: sails.config.custom.api_status.error,
@@ -41,6 +43,12 @@ module.exports = {
       }
       const match = await bcrypt.compare(password, existingDoctor.password);
       if (match) {
+        const existingAvailableTimings = await DoctorAvailableTiming.find({
+          where: { doctorId: existingDoctor.id },
+          select: ["availableTimingId"],
+        }).populate("availableTimingId");
+        delete existingDoctor.password;
+        delete existingDoctor.deleted;
         const auth = await sails.helpers.getJwtToken.with({
           entryPoint: "doctor",
           data: existingDoctor,
@@ -56,7 +64,12 @@ module.exports = {
           data: {
             auth,
             refresh,
-            doctor: existingDoctor,
+            doctor: {
+              ...Doctor.toDto(existingDoctor),
+              availableTimings: existingAvailableTimings.map(
+                (timing) => timing?.availableTimingId
+              ),
+            },
           },
         });
       } else {

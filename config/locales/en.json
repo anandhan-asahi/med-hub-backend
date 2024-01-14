@@ -6,11 +6,14 @@
   "doctor.timings.fetch.success": "Doctor timings fetched successfully",
   "doctor.not.found": "Doctor not found",
   "doctor.password.mismatch": "Password mismatched",
+  "doctor.already.exist": "Email has already been registered with a doctor account.",
   "patient.create.success": "Patient created successfully",
   "patient.update.success": "Patient updated successfully",
   "patient.not.found": "Patient not found",
   "patient.password.mismatch": "Password mismatched",
+  "patient.already.exist": "Email has already been registered with a patient account.",
   "appointment.book.success": "Appointment booked successfully",
   "server.error": "server.error",
-  "login.unauth": "Unauthorized User!"
+  "login.unauth": "Unauthorized User!",
+  "login.refresh": "Session refreshed!"
 }

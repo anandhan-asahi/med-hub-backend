@@ -20,6 +20,8 @@ module.exports.policies = {
   "doctor/login": true,
   "doctor/create": true,
   "patient/login": true,
+  "patient/create": true,
   "available-timing/fetch": true,
   "doctor/fetch-professions": true,
+  "auth/refresh-token": true,
 };

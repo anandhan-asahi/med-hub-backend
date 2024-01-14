@@ -38,7 +38,6 @@ module.exports = {
         name: "Others",
       },
     ];
-    console.log("am here");
     await DoctorProfession.createEach(doctorProfessions);
   },
   createAvailableTiming: async function () {

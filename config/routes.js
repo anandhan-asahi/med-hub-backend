@@ -12,6 +12,7 @@ module.exports.routes = {
   //**** Doctor routes****//
 
   "PUT /api/v1/admin/doctor/auth/login": { action: "doctor/login" },
+  "PUT /api/v1/admin/doctor/refresh-token": { action: "auth/refresh-token" },
   "POST /api/v1/admin/doctor": { action: "doctor/create" },
   "GET /api/v1/admin/doctor/:id": {
     action: "doctor/view",
@@ -55,6 +56,9 @@ module.exports.routes = {
   },
   "GET /api/v1/admin/patient/my-bookings/:id": {
     action: "patient/my-bookings/fetch",
+  },
+  "GET /api/v1/admin/patient/my-old-bookings/:id": {
+    action: "patient/my-bookings/fetch-old-bookings",
   },
 
   //**** Patient routes ends****//

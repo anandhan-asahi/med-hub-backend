@@ -37,6 +37,9 @@ module.exports = {
     success: {
       statusCode: 200,
     },
+    alreadyExist: {
+      statusCode: 409,
+    },
     exceptionError: {
       statusCode: 500,
     },
@@ -44,6 +47,29 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
+      const [existingDoctor, existingPatient] = await Promise.all([
+        Doctor.findOne({
+          email: inputs.email,
+          deleted: false,
+        }),
+        Patient.findOne({
+          email: inputs.email,
+          deleted: false,
+        }),
+      ]);
+      console.log(existingPatient);
+      if (existingPatient) {
+        return exits.alreadyExist({
+          status: sails.config.custom.api_status.error,
+          message: this.req.i18n.__("patient.already.exist"),
+        });
+      } else if (existingDoctor) {
+        return exits.alreadyExist({
+          status: sails.config.custom.api_status.error,
+          message: this.req.i18n.__("doctor.already.exist"),
+        });
+      }
+
       const hashedPassword = await new Promise((resolve, reject) => {
         bcrypt.hash(
           inputs.password,
@@ -54,6 +80,7 @@ module.exports = {
           }
         );
       });
+
       const patientDao = Patient.toDao({ ...inputs, password: hashedPassword });
       await Patient.create(patientDao);
       return exits.success({

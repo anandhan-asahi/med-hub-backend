@@ -4,7 +4,7 @@ module.exports = async (req, res, proceed) => {
       .with({
         token: req.headers.authorization,
         type: "authToken",
-        entryPoint: req.path.includes("doctor") ? "doctor" : "patient",
+        entryPoint: req.path.includes("/doctor/") ? "doctor" : "patient",
       })
       .tolerate("unauthorize", (err) => {
         return res.status(401).send({

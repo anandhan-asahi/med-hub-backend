@@ -41,6 +41,8 @@ module.exports = {
       }
       const match = await bcrypt.compare(password, existingPatient.password);
       if (match) {
+        delete existingPatient.password;
+        delete existingPatient.deleted;
         const auth = await sails.helpers.getJwtToken.with({
           entryPoint: "patient",
           data: existingPatient,
@@ -56,6 +58,7 @@ module.exports = {
           data: {
             auth,
             refresh,
+            patient: Patient.toDto(existingPatient),
           },
         });
       } else {

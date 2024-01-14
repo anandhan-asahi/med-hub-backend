@@ -273,7 +273,7 @@ module.exports = {
     doctor: {
       secretKey:
         "34af1c4e5d7fdce1f57aff05c0f90ebcc2b1c61b51a0f7acb4b66b7b1c450ce4",
-      life: 60 * 60 * 24, //expires in 24 hours
+      life: 60 * 60 * 24 * 7, //expires in 7 days
     },
   },
   refreshToken: {

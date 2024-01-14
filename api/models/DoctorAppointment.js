@@ -92,7 +92,7 @@ module.exports = {
       id: values.id,
       patientId: {
         id: values.patientId.id,
-        name: values.patientId.firstName + " " + values.patientId.firstName,
+        name: values.patientId.firstName + " " + values.patientId.lastName,
         email: values.patientId.email,
         age: values.patientId.age,
       },
