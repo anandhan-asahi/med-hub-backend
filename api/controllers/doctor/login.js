@@ -56,6 +56,7 @@ module.exports = {
           data: {
             auth,
             refresh,
+            doctor: existingDoctor,
           },
         });
       } else {

@@ -16,9 +16,10 @@ module.exports.policies = {
    *                                                                          *
    ***************************************************************************/
   // '*': true,
-  // "*": "authenticate",
-  // "doctor/login": true,
-  // "doctor/create": true,
-  // "patient/login": true,
-  // "available-timing/fetch": true,
+  "*": "authenticate",
+  "doctor/login": true,
+  "doctor/create": true,
+  "patient/login": true,
+  "available-timing/fetch": true,
+  "doctor/fetch-professions": true,
 };

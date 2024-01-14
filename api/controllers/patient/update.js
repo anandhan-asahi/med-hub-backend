@@ -30,10 +30,6 @@ module.exports = {
     phoneNumber: {
       type: "string",
     },
-    password: {
-      type: "string",
-      required: true,
-    },
   },
 
   exits: {

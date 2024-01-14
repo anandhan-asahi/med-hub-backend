@@ -14,7 +14,7 @@ module.exports = async (req, res, proceed) => {
         });
       });
     if (verify.data) {
-      req.user = verify.data;
+      req.doctor = verify.data;
       proceed();
     }
   } catch (err) {

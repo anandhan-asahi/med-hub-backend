@@ -23,9 +23,6 @@ module.exports = {
     phoneNumber: {
       type: "string",
     },
-    password: {
-      type: "string",
-    },
     isAdmin: {
       type: "boolean",
     },
@@ -51,25 +48,15 @@ module.exports = {
 
   fn: async function (inputs, exits) {
     try {
-      const existingDoctor = await Doctor.findOne({ id: inputs.id });
-      if (!existingDoctor) {
-        return exits.doctorNotFound({
-          status: sails.config.custom.api_status.error,
-          message: this.req.i18n.__("doctor.not.found"),
-        });
-      }
       const doctorDao = Doctor.toDao(inputs);
-      const updatedDoctor = await Doctor.updateOne(
-        { id: existingDoctor.id },
-        doctorDao
-      );
+      await Doctor.updateOne({ id: inputs.id }, doctorDao);
       if (inputs.availableTimings) {
-        await DoctorAvailableTiming.destroy({ doctorId: existingDoctor.id });
+        await DoctorAvailableTiming.destroy({ doctorId: inputs.id });
         const doctorAvailableTimingDaoList = inputs.availableTimings.map(
           (timing) => {
             return {
               ...DoctorAvailableTiming.toDao({
-                doctorId: existingDoctor.id,
+                doctorId: inputs.id,
                 availableTimingId: timing,
               }),
             };
@@ -77,10 +64,23 @@ module.exports = {
         );
         await DoctorAvailableTiming.createEach(doctorAvailableTimingDaoList);
       }
+      const [existingDoctor, existingAvailableTimings] = await Promise.all([
+        Doctor.findOne({ id: inputs.id }).populate("doctorProfessionId"),
+        DoctorAvailableTiming.find({
+          where: { doctorId: inputs.id },
+          select: ["availableTimingId"],
+        }).populate("availableTimingId"),
+      ]);
+
       return exits.success({
         status: sails.config.custom.api_status.success,
         message: this.req.i18n.__("doctor.update.success"),
-        data: Doctor.toDto(updatedDoctor),
+        data: {
+          ...Doctor.toDto(existingDoctor),
+          availableTimings: existingAvailableTimings.map(
+            (timing) => timing?.availableTimingId
+          ),
+        },
       });
     } catch (err) {
       sails.log.error("Error occurred at creating a doctor as " + err);

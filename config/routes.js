@@ -10,6 +10,7 @@
 
 module.exports.routes = {
   //**** Doctor routes****//
+
   "PUT /api/v1/admin/doctor/auth/login": { action: "doctor/login" },
   "POST /api/v1/admin/doctor": { action: "doctor/create" },
   "GET /api/v1/admin/doctor/:id": {
@@ -21,9 +22,20 @@ module.exports.routes = {
   "GET /api/v1/admin/doctor/appointments/:id": {
     action: "doctor/appointment/fetch",
   },
+  "GET /api/v1/admin/doctor/details": {
+    action: "doctor/doctor-details",
+  },
+  "GET /api/v1/admin/doctor/professions": {
+    action: "doctor/fetch-professions",
+  },
+  "GET /api/v1/admin/doctor/patient-details/:id": {
+    action: "patient/view",
+  },
+
   //**** Doctor routes ends****//
 
   //**** Patient routes****//
+
   "PUT /api/v1/admin/patient/auth/login": { action: "patient/login" },
   "POST /api/v1/admin/patient": { action: "patient/create" },
   "GET /api/v1/admin/patient/:id": {
@@ -44,9 +56,11 @@ module.exports.routes = {
   "GET /api/v1/admin/patient/my-bookings/:id": {
     action: "patient/my-bookings/fetch",
   },
+
   //**** Patient routes ends****//
 
-  //**** Available routes****//
+  //**** Available timing routes****//
+
   "GET /api/v1/admin/available-timing": {
     action: "available-timing/fetch",
   },

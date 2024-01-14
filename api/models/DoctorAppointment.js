@@ -4,6 +4,7 @@
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
+const moment = require("moment");
 module.exports = {
   tableName: "doctor_appointment",
   attributes: {
@@ -54,8 +55,12 @@ module.exports = {
       doctorId: values.doctorId,
       patientId: values.patientId,
       availableTimingId: values.availableTimingId,
-      appointmentStartTime: values.appointmentStartTime,
-      appointmentEndTime: values.appointmentEndTime,
+      appointmentStartTime: moment(values.appointmentStartTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
+      appointmentEndTime: moment(values.appointmentEndTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
     };
     Object.keys(data).forEach(
       (key) => data[key] === undefined && delete data[key]
@@ -70,8 +75,12 @@ module.exports = {
         name: values.doctorId.firstName + " " + values.doctorId.firstName,
         email: values.doctorId.email,
       },
-      appointmentStartTime: values.appointmentStartTime,
-      appointmentEndTime: values.appointmentEndTime,
+      appointmentStartTime: moment(values.appointmentStartTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
+      appointmentEndTime: moment(values.appointmentEndTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
     };
     Object.keys(data).forEach(
       (key) => data[key] === undefined && delete data[key]
@@ -87,8 +96,12 @@ module.exports = {
         email: values.patientId.email,
         age: values.patientId.age,
       },
-      appointmentStartTime: values.appointmentStartTime,
-      appointmentEndTime: values.appointmentEndTime,
+      appointmentStartTime: moment(values.appointmentStartTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
+      appointmentEndTime: moment(values.appointmentEndTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      ),
     };
     Object.keys(data).forEach(
       (key) => data[key] === undefined && delete data[key]
